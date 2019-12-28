@@ -1,0 +1,12 @@
+#!/bin/bash
+
+service ssh restart
+service dropbear restart
+service webmin restart
+service squid3 restart
+service openvpn restart
+service stunnel4 restart
+service nginx restart
+service badvpn restart
+service iptables restart
+service fail2ban restart

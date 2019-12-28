@@ -1,0 +1,16 @@
+#!/bin/bash
+
+echo ""
+read -p "Username : " user
+egrep "^$user" /etc/passwd >/dev/null
+if [ $? -eq 0 ]
+then
+	userdel -f $user
+	echo ""
+	echo "User deleted successfully."
+	echo ""
+else
+	echo ""
+	echo "User does not exist."
+	echo ""
+fi

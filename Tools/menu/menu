@@ -1,0 +1,76 @@
+#!/bin/bash
+
+clear
+echo ""
+echo "  ::::    ::::  :::   ::: ::::::::::: :::    :::"
+echo "  +:+:+: :+:+:+ :+:   :+:     :+:     :+:    :+:"
+echo "  +:+ +:+:+ +:+  +:+ +:+      +:+     +:+    +:+"
+echo "  +#+  +:+  +#+   +#++:       +#+     +#++:++#++"
+echo "  +#+       +#+    +#+        +#+     +#+    +#+"
+echo "  #+#       #+#    #+#        #+#     #+#    #+#"
+echo "  ###       ###    ###        ###     ###    ###"
+echo "                 [Script by MYTH]"
+echo ""
+echo "USER:"
+echo "  [1] Create new user"
+echo "  [2] Create new trial user"
+echo "  [3] Delete user"
+echo "  [4] Check user login"
+echo "  [5] View all user"
+echo ""
+echo "SERVER:"
+echo "  [6] Restart all service"
+echo "  [7] Speedtest"
+echo "  [8] Restart VPS"
+echo ""
+echo "OTHER:"
+echo "  [9] Show Script information"
+echo ""
+echo "  [x] exit"
+echo ""
+read -p "Select From Options [1-9 or x] :  " menu
+
+case $menu in
+	1)
+	clear
+	add-user
+	;;
+	2)
+	clear
+	add-user-trial
+	;;
+	3)
+	clear
+	delete-user
+	;;
+	4)
+	clear
+	check-user-login
+	;;
+	5)
+	clear
+	view-all-user
+	;;
+	6)
+	clear
+	restart-all-service
+	;;
+	7)
+	clear
+	echo ""
+	speedtest
+	read -n 1 -s -r -p "Press any key to continue . . ."
+	;;
+	8)
+	reboot
+	exit
+	;;
+	9)
+	clear
+	script-info
+	;;
+	x)
+	clear
+	exit
+	;;
+esac

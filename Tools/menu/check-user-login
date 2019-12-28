@@ -1,0 +1,46 @@
+#!/bin/bash
+
+data=( `ps aux | grep -i dropbear | awk '{print $2}'`)
+
+echo ""
+echo "-----------------------"
+echo "Checking Dropbear login"
+echo "-----------------------"
+
+for PID in "${data[@]}"
+do
+	num=`cat /var/log/auth.log | grep -i dropbear | grep -i "Password auth succeeded" | grep "dropbear\[$PID\]" | wc -l`
+	user=`cat /var/log/auth.log | grep -i dropbear | grep -i "Password auth succeeded" | grep "dropbear\[$PID\]" | awk '{print $10}'`
+	ip=`cat /var/log/auth.log | grep -i dropbear | grep -i "Password auth succeeded" | grep "dropbear\[$PID\]" | awk '{print $12}'`
+	if [ $num -eq 1 ]
+	then
+		echo "$PID - $user - $ip"
+	fi
+done
+
+echo ""
+
+data=( `ps aux | grep "\[priv\]" | sort -k 72 | awk '{print $2}'`)
+
+echo "----------------------"
+echo "Checking OpenSSH login"
+echo "----------------------"
+
+for PID in "${data[@]}"
+do
+	num=`cat /var/log/auth.log | grep -i sshd | grep -i "Accepted password for" | grep "sshd\[$PID\]" | wc -l`
+	user=`cat /var/log/auth.log | grep -i sshd | grep -i "Accepted password for" | grep "sshd\[$PID\]" | awk '{print $9}'`
+	ip=`cat /var/log/auth.log | grep -i sshd | grep -i "Accepted password for" | grep "sshd\[$PID\]" | awk '{print $11}'`
+    if [ $num -eq 1 ]
+	then
+        echo "$PID - $user - $ip"
+    fi
+done
+
+echo ""
+
+echo "-----------------------------"
+echo "Kill multi login : kill [PID]"
+echo "-----------------------------"
+
+echo ""

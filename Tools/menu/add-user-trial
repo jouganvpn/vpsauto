@@ -1,0 +1,22 @@
+#!/bin/bash
+
+IP=`ifconfig eth0 | awk 'NR==2 {print $2}'`
+user=trial`</dev/urandom tr -dc X-Z0-9 | head -c4`
+pass=`</dev/urandom tr -dc a-f0-9 | head -c9`
+useradd -e `date -d "$expired days" +"%d-%m-%Y"` -s /bin/false -M $user
+exp="$(chage -l $user | grep "Account expires" | awk -F": " '{print $2}')"
+echo "$pass\n$pass\n"|passwd $user &> /dev/null
+echo ""
+echo "====== SSH Account Information ======"
+echo "Host           : $IP"
+echo "Port OpenSSH   : 22"
+echo "Port Dropbear  : 80, 442"
+echo "Port Stunnel4  : 443"
+echo "Port Squid     : 8080, 3128"
+echo "Config OpenVPN : http://$IP/Configs.zip"
+echo "Username       : $user "
+echo "Password       : $pass"
+echo "-------------------------------------"
+echo "Expired date   : $exp"
+echo "====================================="
+echo ""
